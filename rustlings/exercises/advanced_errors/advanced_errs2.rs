@@ -53,6 +53,15 @@ impl From<ParseFloatError> for ParseClimateError {
 // is not necessary to implement any methods inside the missing trait.
 
 impl Error for ParseClimateError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            ParseClimateError::Empty => None,
+            ParseClimateError::BadLen => None,
+            ParseClimateError::NoCity => None,
+            ParseClimateError::ParseInt(e) => Some(e),
+            ParseClimateError::ParseFloat(e) => Some(e),
+        }
+    }
 }
 
 // The `Display` trait allows for other code to obtain the error formatted
@@ -201,7 +210,6 @@ mod test {
         );
     }
     #[test]
-    #[ignore]
     fn test_downcast() {
         let res = "São Paulo,-21,28.5".parse::<Climate>();
         assert!(matches!(res, Err(ParseClimateError::ParseInt(_))));
