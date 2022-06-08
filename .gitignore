@@ -24,3 +24,5 @@ rustlings/exercises/clippy/Cargo.lock
 rustlings/.idea
 rustlings/.vscode
 *.iml
+
+node_modules/
