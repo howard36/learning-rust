@@ -25,4 +25,5 @@ rustlings/.idea
 rustlings/.vscode
 *.iml
 
-node_modules/
+dist
+node_modules

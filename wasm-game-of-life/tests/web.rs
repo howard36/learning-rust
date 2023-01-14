@@ -2,6 +2,9 @@
 
 #![cfg(target_arch = "wasm32")]
 
+extern crate wasm_game_of_life;
+use wasm_game_of_life::Universe;
+
 extern crate wasm_bindgen_test;
 use wasm_bindgen_test::*;
 
@@ -28,4 +31,18 @@ pub fn expected_spaceship() -> Universe {
     universe.set_height(6);
     universe.set_cells(&[(2,1), (2,3), (3,2), (3,3), (4,2)]);
     universe
+}
+
+#[wasm_bindgen_test]
+pub fn test_tick() {
+    // Let's create a smaller Universe with a small spaceship to test!
+    let mut input_universe = input_spaceship();
+
+    // This is what our spaceship should look like
+    // after one tick in our universe.
+    let expected_universe = expected_spaceship();
+
+    // Call `tick` and then see if the cells in the `Universe`s are the same.
+    input_universe.tick();
+    assert_eq!(&input_universe.get_cells(), &expected_universe.get_cells());
 }
